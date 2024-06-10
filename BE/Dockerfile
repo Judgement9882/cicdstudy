@@ -6,10 +6,12 @@ WORKDIR /app
 
 # Copy Gradle project files
 COPY build.gradle settings.gradle ./
+
+# Copy the rest of the application source code
 COPY src ./src
 
 # Build the application (create the JAR file)
-RUN gradle build -x test
+RUN gradle clean build -x test --no-daemon
 
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:17-jdk-slim
